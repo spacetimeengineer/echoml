@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>sv_km API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>sv_km</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import numpy as np
+import pandas as pd
+import xarray as xr
+from sklearn.cluster import KMeans
+# Fitting Random Forest Regression to the dataset
+# import the regressor
+from sklearn.ensemble import RandomForestRegressor
+import echopype as ep
+from echopype import open_raw
+from sklearn import datasets, preprocessing
+import matplotlib.pyplot as plt
+from itertools import chain, combinations
+
+pd.set_option(&#39;display.max_columns&#39;, None)  
+pd.set_option(&#39;display.expand_frame_repr&#39;, False)
+
+
+class RandomForestAgent():
+    
+    def __init__(self, df, channel_list, k, random_state): # TODO Need to take in channel list instead of query matrix.
+
+        self.random_state = random_state
+        self.channel_list = channel_list
+        self.k = k
+        self.df = df
+        
+        self.assign_random_forests() # Initiate Random-Forest sequence.
+        
+    
+    def assign_random_forests(self):
+        pass
+    
+
+class Frequencies():
+    &#34;&#34;&#34;Given some dtaset &#39;Sv&#39;, list all frequencies available.
+    &#34;&#34;&#34;   
+    
+    def __init__(self, Sv):
+        &#34;&#34;&#34;Initializes class object and parses the frequencies available in the xarray &#39;Sv&#39;
+
+        Args:
+            Sv (_type_): The &#39;Sv&#39; echodata object.
+        &#34;&#34;&#34;
+        
+        self.Sv = Sv # Crreate a self object.
+        self.frequency_list = [] # Declares a frequency list to be modified.
+        self.construct_frequency_list() # Construct the frequency list.
+        self.frequency_combination_list = self.construct_frequency_set_combination_list()
+
+
+    def construct_frequency_list(self):
+        &#34;&#34;&#34;Parses the frequencies available in the xarray &#39;Sv&#39;
+        &#34;&#34;&#34;
+        for i in range(len(self.Sv.Sv)): # Iterate through the natural index associated with Sv.Sv .
+            
+            self.frequency_list.append(str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;) # Extract frequency.
+            
+        return self.frequency_list # Return string array frequency list of the form [18kHz, 70kHz, 200 kHz]
+        
+        
+    def powerset(self, iterable):
+        &#34;&#34;&#34;Generates combinations of elements of iterables ; powerset([1,2,3]) --&gt; () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
+
+        Args:
+            iterable (_type_): A list.
+
+        Returns:
+            _type_: Returns combinations of elements of iterables.
+        &#34;&#34;&#34;        
+        
+        s = list(iterable) # Make a list from the iterable.
+        return chain.from_iterable(combinations(s, r) for r in range(len(s)+1)) # Returns a list of tuple elements containing combinations of elements which derived from the iterable object.
+
+
+    def construct_frequency_set_combination_list(self):
+        &#34;&#34;&#34;Returns a list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.
+
+        Returns:
+            list&lt;tuple&gt;: A list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.
+        &#34;&#34;&#34;  
+              
+        return list(self.powerset(self.frequency_list)) # Returns a list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.
+    
+    
+    def print_frequency_set_combination_list(self):
+        &#34;&#34;&#34;Prints frequency combination list one element at a time.
+        &#34;&#34;&#34;
+                
+        for i in self.frequency_combination_list:  # For each frequency combination associated with Sv.
+            print(i) # Print out frequency combination tuple.
+            
+            
+    def print_frequency_list(self):
+        &#34;&#34;&#34;Prints each frequency element available in Sv.
+        &#34;&#34;&#34;        
+        
+        for i in self.frequency_list:# For each frequency in the frequency_list associated with Sv.
+            print(i) # Print out the associated frequency.
+
+
+class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsupervised-learning-with-python-k-means-and-hierarchical-clustering-f36ceeec919c
+    
+    def __init__(self, Sv, channel_list = None, k = None, random_state = None, frequency_list = None): # TODO Need to take in channel list instead of query matrix.
+
+        self.random_state = random_state # Class variable &#39;random_state&#39; is a general kmeans parameter.
+        self.channel_list = channel_list # If the user chooses, they may provide a channel list insead of a specify frequency set.
+        self.frequency_set_string = &#34;&#34;
+        self.k = k
+        self.Sv = Sv
+        self.frequency_list = frequency_list
+        
+        if self.frequency_list == None:
+            
+            if self.channel_list != None:
+                            
+                self.frequency_list = []
+                self.construct_frequency_list(frequencies_provided = False)
+                self.construct_frequency_set_string()
+                self.assign_sv_clusters() # Execute K-Means algorithm.
+                
+            else: 
+                
+                print(&#34;Provide a frequency_list or channel_list input parameter.&#34;)
+
+        else:    
+            self.construct_frequency_list(frequencies_provided = True)
+            self.construct_frequency_set_string()
+            self.assign_sv_clusters() # Execute K-Means algorithm.
+
+        
+    def construct_frequency_list(self, frequencies_provided):
+        &#34;&#34;&#34;Either using a channel_list or a frequency_list this function provides one which satisfies all requirements of this class structure. In particular the channels and frequencies involved have to be known and mapped to oneanother.
+
+        Args:
+            frequencies_provided (boolean): was a frequency_list provided at object creation? If so then &#39;True&#39; if a channel_list instead was used then &#39;False&#39;.
+        &#34;&#34;&#34;        
+        if frequencies_provided == True:
+            self.simple_frequency_list = self.frequency_list
+            self.frequency_list = []
+    
+            for j in self.simple_frequency_list:
+                for i in range(len(self.Sv.Sv)):
+                    if str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip() == j.split(&#34;kHz&#34;)[0].strip():
+                        self.frequency_list.append([i,str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])
+                        
+        else:
+            for i in self.channel_list:
+                self.frequency_list.append([i,str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])
+                
+            
+    def construct_frequency_set_string(self):
+        
+        frequency_set_string = &#34;&#34;
+        
+        for i in self.frequency_list:
+            
+            frequency_set_string += i[1].split(&#34; &#34;)[0]+&#34;kHz,&#34;
+
+        frequency_set_string = &#34;&lt;(&#34;+frequency_set_string+&#34;,&#34;
+        frequency_set_string = frequency_set_string.split(&#34;,,&#34;)[0]+&#34;)&gt;&#34;
+        self.frequency_set_string = frequency_set_string
+        
+        
+    def construct_pre_clustering_df(self):
+        
+        pre_clustering_df = pd.DataFrame()
+        sv_frequency_map_list = []
+ 
+ 
+        for i in self.frequency_list: # Need a channel mapping function.
+            
+            #print(i)
+            channel_df = self.Sv.Sv[i[0]].to_dataframe(name=None, dim_order=None)
+            channel_df.rename(columns = {&#39;Sv&#39;:str(self.Sv.Sv[i[0]].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;}, inplace = True)
+            sv_frequency_map_list.append(channel_df[str(self.Sv.Sv[i[0]].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])
+            
+        pre_clustering_df = pd.concat(sv_frequency_map_list, axis = 1)
+        return pre_clustering_df.reset_index().select_dtypes(include=[&#39;float64&#39;])
+
+
+    def assign_sv_clusters(self):
+        
+        self.pre_clustering_df = self.construct_pre_clustering_df()
+        
+        df_normalized = preprocessing.scale(self.pre_clustering_df) # Normalize dataset such that values are from 0 to 1.
+        self.df_clustered = pd.DataFrame(df_normalized) # Make into a dataframe. TODO : Investigate and write better comments.
+        kmeans = KMeans(n_clusters=self.k, random_state = self.random_state, init=&#39;k-means++&#39;, n_init=10, max_iter=300) 
+        
+        X = self.df_clustered.values # &#39;X&#39; is the sklearn convention. 
+        
+        clustered_records = kmeans.fit_predict(X) # The clustering data in df format.
+
+        self.Sv_df = self.Sv.Sv[0].to_dataframe(name=None, dim_order=None) # We only need to borrow the dimensionality of the xarray so we only need one element of self.Sv.Sv.
+        self.Sv_df[self.frequency_set_string] = clustered_records + 1 
+        
+        self.clustering_data = self.Sv_df.to_xarray()
+        km_cluster_maps = []
+        for i in range(len(Sv.Sv)):
+            km_cluster_maps.append(self.clustering_data[self.frequency_set_string].values)
+        
+        #print(&#34;km_cluster_map&#34;+self.frequency_set_string)
+        self.Sv[&#34;km_cluster_map&#34;+self.frequency_set_string] = xr.DataArray(
+            data = km_cluster_maps, dims = [&#39;channel&#39;,&#39;ping_time&#39;,&#39;range_sample&#39;],
+            attrs = dict(
+                description = &#34;The kmeans cluster group number for a given dataset (Sv.Sv), a frequency clustering set and a total cluster count &#39;k&#39;.&#34;,
+                units = &#34;Unitless&#34;,
+                clusters = self.k,
+                km_frequencies = self.frequency_set_string,
+                random_state = self.random_state,
+            ))
+    
+
+
+
+
+ed = ep.open_converted(&#34;D20090916-T132105.nc&#34;)                                            # Create an EchoData object from converted .nc file.
+Sv = ep.calibrate.compute_Sv(ed).dropna(dim=&#34;range_sample&#34;, how=&#34;any&#34;)                    # Obtain a xarray object containing Sv, echo_range.
+
+frequencies = Frequencies(Sv)
+#frequencies.print_frequency_list()
+#frequencies.print_frequency_set_combination_list()
+
+kmeans_agent = KMeansOperator(Sv, channel_list = [1,2,3], k = 10, random_state = 42)
+kmeans_agent = KMeansOperator(Sv, frequency_list = [&#39;38kHz&#39;, &#39;120kHz&#39;, &#39;200kHz&#39;], k = 10, random_state = 22)    # Kmeans agent.
+
+
+print(Sv)
+print(Sv[&#34;km_cluster_map&lt;(38kHz,70kHz,120kHz)&gt;&#34;])</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="sv_km.Frequencies"><code class="flex name class">
+<span>class <span class="ident">Frequencies</span></span>
+<span>(</span><span>Sv)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Given some dtaset 'Sv', list all frequencies available.</p>
+<p>Initializes class object and parses the frequencies available in the xarray 'Sv'</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>Sv</code></strong> :&ensp;<code>_type_</code></dt>
+<dd>The 'Sv' echodata object.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Frequencies():
+    &#34;&#34;&#34;Given some dtaset &#39;Sv&#39;, list all frequencies available.
+    &#34;&#34;&#34;   
+    
+    def __init__(self, Sv):
+        &#34;&#34;&#34;Initializes class object and parses the frequencies available in the xarray &#39;Sv&#39;
+
+        Args:
+            Sv (_type_): The &#39;Sv&#39; echodata object.
+        &#34;&#34;&#34;
+        
+        self.Sv = Sv # Crreate a self object.
+        self.frequency_list = [] # Declares a frequency list to be modified.
+        self.construct_frequency_list() # Construct the frequency list.
+        self.frequency_combination_list = self.construct_frequency_set_combination_list()
+
+
+    def construct_frequency_list(self):
+        &#34;&#34;&#34;Parses the frequencies available in the xarray &#39;Sv&#39;
+        &#34;&#34;&#34;
+        for i in range(len(self.Sv.Sv)): # Iterate through the natural index associated with Sv.Sv .
+            
+            self.frequency_list.append(str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;) # Extract frequency.
+            
+        return self.frequency_list # Return string array frequency list of the form [18kHz, 70kHz, 200 kHz]
+        
+        
+    def powerset(self, iterable):
+        &#34;&#34;&#34;Generates combinations of elements of iterables ; powerset([1,2,3]) --&gt; () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
+
+        Args:
+            iterable (_type_): A list.
+
+        Returns:
+            _type_: Returns combinations of elements of iterables.
+        &#34;&#34;&#34;        
+        
+        s = list(iterable) # Make a list from the iterable.
+        return chain.from_iterable(combinations(s, r) for r in range(len(s)+1)) # Returns a list of tuple elements containing combinations of elements which derived from the iterable object.
+
+
+    def construct_frequency_set_combination_list(self):
+        &#34;&#34;&#34;Returns a list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.
+
+        Returns:
+            list&lt;tuple&gt;: A list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.
+        &#34;&#34;&#34;  
+              
+        return list(self.powerset(self.frequency_list)) # Returns a list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.
+    
+    
+    def print_frequency_set_combination_list(self):
+        &#34;&#34;&#34;Prints frequency combination list one element at a time.
+        &#34;&#34;&#34;
+                
+        for i in self.frequency_combination_list:  # For each frequency combination associated with Sv.
+            print(i) # Print out frequency combination tuple.
+            
+            
+    def print_frequency_list(self):
+        &#34;&#34;&#34;Prints each frequency element available in Sv.
+        &#34;&#34;&#34;        
+        
+        for i in self.frequency_list:# For each frequency in the frequency_list associated with Sv.
+            print(i) # Print out the associated frequency.</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="sv_km.Frequencies.construct_frequency_list"><code class="name flex">
+<span>def <span class="ident">construct_frequency_list</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parses the frequencies available in the xarray 'Sv'</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_frequency_list(self):
+    &#34;&#34;&#34;Parses the frequencies available in the xarray &#39;Sv&#39;
+    &#34;&#34;&#34;
+    for i in range(len(self.Sv.Sv)): # Iterate through the natural index associated with Sv.Sv .
+        
+        self.frequency_list.append(str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;) # Extract frequency.
+        
+    return self.frequency_list # Return string array frequency list of the form [18kHz, 70kHz, 200 kHz]</code></pre>
+</details>
+</dd>
+<dt id="sv_km.Frequencies.construct_frequency_set_combination_list"><code class="name flex">
+<span>def <span class="ident">construct_frequency_set_combination_list</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.</p>
+<h2 id="returns">Returns</h2>
+<p>list<tuple>: A list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_frequency_set_combination_list(self):
+    &#34;&#34;&#34;Returns a list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.
+
+    Returns:
+        list&lt;tuple&gt;: A list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.
+    &#34;&#34;&#34;  
+          
+    return list(self.powerset(self.frequency_list)) # Returns a list of tuple elements containing frequency combinations which is useful for the KMeansOperator class.</code></pre>
+</details>
+</dd>
+<dt id="sv_km.Frequencies.powerset"><code class="name flex">
+<span>def <span class="ident">powerset</span></span>(<span>self, iterable)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates combinations of elements of iterables ; powerset([1,2,3]) &ndash;&gt; () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>iterable</code></strong> :&ensp;<code>_type_</code></dt>
+<dd>A list.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>_type_</code></dt>
+<dd>Returns combinations of elements of iterables.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def powerset(self, iterable):
+    &#34;&#34;&#34;Generates combinations of elements of iterables ; powerset([1,2,3]) --&gt; () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)
+
+    Args:
+        iterable (_type_): A list.
+
+    Returns:
+        _type_: Returns combinations of elements of iterables.
+    &#34;&#34;&#34;        
+    
+    s = list(iterable) # Make a list from the iterable.
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1)) # Returns a list of tuple elements containing combinations of elements which derived from the iterable object.</code></pre>
+</details>
+</dd>
+<dt id="sv_km.Frequencies.print_frequency_list"><code class="name flex">
+<span>def <span class="ident">print_frequency_list</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints each frequency element available in Sv.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_frequency_list(self):
+    &#34;&#34;&#34;Prints each frequency element available in Sv.
+    &#34;&#34;&#34;        
+    
+    for i in self.frequency_list:# For each frequency in the frequency_list associated with Sv.
+        print(i) # Print out the associated frequency.</code></pre>
+</details>
+</dd>
+<dt id="sv_km.Frequencies.print_frequency_set_combination_list"><code class="name flex">
+<span>def <span class="ident">print_frequency_set_combination_list</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints frequency combination list one element at a time.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_frequency_set_combination_list(self):
+    &#34;&#34;&#34;Prints frequency combination list one element at a time.
+    &#34;&#34;&#34;
+            
+    for i in self.frequency_combination_list:  # For each frequency combination associated with Sv.
+        print(i) # Print out frequency combination tuple.</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="sv_km.KMeansOperator"><code class="flex name class">
+<span>class <span class="ident">KMeansOperator</span></span>
+<span>(</span><span>Sv, channel_list=None, k=None, random_state=None, frequency_list=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsupervised-learning-with-python-k-means-and-hierarchical-clustering-f36ceeec919c
+    
+    def __init__(self, Sv, channel_list = None, k = None, random_state = None, frequency_list = None): # TODO Need to take in channel list instead of query matrix.
+
+        self.random_state = random_state # Class variable &#39;random_state&#39; is a general kmeans parameter.
+        self.channel_list = channel_list # If the user chooses, they may provide a channel list insead of a specify frequency set.
+        self.frequency_set_string = &#34;&#34;
+        self.k = k
+        self.Sv = Sv
+        self.frequency_list = frequency_list
+        
+        if self.frequency_list == None:
+            
+            if self.channel_list != None:
+                            
+                self.frequency_list = []
+                self.construct_frequency_list(frequencies_provided = False)
+                self.construct_frequency_set_string()
+                self.assign_sv_clusters() # Execute K-Means algorithm.
+                
+            else: 
+                
+                print(&#34;Provide a frequency_list or channel_list input parameter.&#34;)
+
+        else:    
+            self.construct_frequency_list(frequencies_provided = True)
+            self.construct_frequency_set_string()
+            self.assign_sv_clusters() # Execute K-Means algorithm.
+
+        
+    def construct_frequency_list(self, frequencies_provided):
+        &#34;&#34;&#34;Either using a channel_list or a frequency_list this function provides one which satisfies all requirements of this class structure. In particular the channels and frequencies involved have to be known and mapped to oneanother.
+
+        Args:
+            frequencies_provided (boolean): was a frequency_list provided at object creation? If so then &#39;True&#39; if a channel_list instead was used then &#39;False&#39;.
+        &#34;&#34;&#34;        
+        if frequencies_provided == True:
+            self.simple_frequency_list = self.frequency_list
+            self.frequency_list = []
+    
+            for j in self.simple_frequency_list:
+                for i in range(len(self.Sv.Sv)):
+                    if str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip() == j.split(&#34;kHz&#34;)[0].strip():
+                        self.frequency_list.append([i,str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])
+                        
+        else:
+            for i in self.channel_list:
+                self.frequency_list.append([i,str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])
+                
+            
+    def construct_frequency_set_string(self):
+        
+        frequency_set_string = &#34;&#34;
+        
+        for i in self.frequency_list:
+            
+            frequency_set_string += i[1].split(&#34; &#34;)[0]+&#34;kHz,&#34;
+
+        frequency_set_string = &#34;&lt;(&#34;+frequency_set_string+&#34;,&#34;
+        frequency_set_string = frequency_set_string.split(&#34;,,&#34;)[0]+&#34;)&gt;&#34;
+        self.frequency_set_string = frequency_set_string
+        
+        
+    def construct_pre_clustering_df(self):
+        
+        pre_clustering_df = pd.DataFrame()
+        sv_frequency_map_list = []
+ 
+ 
+        for i in self.frequency_list: # Need a channel mapping function.
+            
+            #print(i)
+            channel_df = self.Sv.Sv[i[0]].to_dataframe(name=None, dim_order=None)
+            channel_df.rename(columns = {&#39;Sv&#39;:str(self.Sv.Sv[i[0]].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;}, inplace = True)
+            sv_frequency_map_list.append(channel_df[str(self.Sv.Sv[i[0]].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])
+            
+        pre_clustering_df = pd.concat(sv_frequency_map_list, axis = 1)
+        return pre_clustering_df.reset_index().select_dtypes(include=[&#39;float64&#39;])
+
+
+    def assign_sv_clusters(self):
+        
+        self.pre_clustering_df = self.construct_pre_clustering_df()
+        
+        df_normalized = preprocessing.scale(self.pre_clustering_df) # Normalize dataset such that values are from 0 to 1.
+        self.df_clustered = pd.DataFrame(df_normalized) # Make into a dataframe. TODO : Investigate and write better comments.
+        kmeans = KMeans(n_clusters=self.k, random_state = self.random_state, init=&#39;k-means++&#39;, n_init=10, max_iter=300) 
+        
+        X = self.df_clustered.values # &#39;X&#39; is the sklearn convention. 
+        
+        clustered_records = kmeans.fit_predict(X) # The clustering data in df format.
+
+        self.Sv_df = self.Sv.Sv[0].to_dataframe(name=None, dim_order=None) # We only need to borrow the dimensionality of the xarray so we only need one element of self.Sv.Sv.
+        self.Sv_df[self.frequency_set_string] = clustered_records + 1 
+        
+        self.clustering_data = self.Sv_df.to_xarray()
+        km_cluster_maps = []
+        for i in range(len(Sv.Sv)):
+            km_cluster_maps.append(self.clustering_data[self.frequency_set_string].values)
+        
+        #print(&#34;km_cluster_map&#34;+self.frequency_set_string)
+        self.Sv[&#34;km_cluster_map&#34;+self.frequency_set_string] = xr.DataArray(
+            data = km_cluster_maps, dims = [&#39;channel&#39;,&#39;ping_time&#39;,&#39;range_sample&#39;],
+            attrs = dict(
+                description = &#34;The kmeans cluster group number for a given dataset (Sv.Sv), a frequency clustering set and a total cluster count &#39;k&#39;.&#34;,
+                units = &#34;Unitless&#34;,
+                clusters = self.k,
+                km_frequencies = self.frequency_set_string,
+                random_state = self.random_state,
+            ))</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="sv_km.KMeansOperator.assign_sv_clusters"><code class="name flex">
+<span>def <span class="ident">assign_sv_clusters</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def assign_sv_clusters(self):
+    
+    self.pre_clustering_df = self.construct_pre_clustering_df()
+    
+    df_normalized = preprocessing.scale(self.pre_clustering_df) # Normalize dataset such that values are from 0 to 1.
+    self.df_clustered = pd.DataFrame(df_normalized) # Make into a dataframe. TODO : Investigate and write better comments.
+    kmeans = KMeans(n_clusters=self.k, random_state = self.random_state, init=&#39;k-means++&#39;, n_init=10, max_iter=300) 
+    
+    X = self.df_clustered.values # &#39;X&#39; is the sklearn convention. 
+    
+    clustered_records = kmeans.fit_predict(X) # The clustering data in df format.
+
+    self.Sv_df = self.Sv.Sv[0].to_dataframe(name=None, dim_order=None) # We only need to borrow the dimensionality of the xarray so we only need one element of self.Sv.Sv.
+    self.Sv_df[self.frequency_set_string] = clustered_records + 1 
+    
+    self.clustering_data = self.Sv_df.to_xarray()
+    km_cluster_maps = []
+    for i in range(len(Sv.Sv)):
+        km_cluster_maps.append(self.clustering_data[self.frequency_set_string].values)
+    
+    #print(&#34;km_cluster_map&#34;+self.frequency_set_string)
+    self.Sv[&#34;km_cluster_map&#34;+self.frequency_set_string] = xr.DataArray(
+        data = km_cluster_maps, dims = [&#39;channel&#39;,&#39;ping_time&#39;,&#39;range_sample&#39;],
+        attrs = dict(
+            description = &#34;The kmeans cluster group number for a given dataset (Sv.Sv), a frequency clustering set and a total cluster count &#39;k&#39;.&#34;,
+            units = &#34;Unitless&#34;,
+            clusters = self.k,
+            km_frequencies = self.frequency_set_string,
+            random_state = self.random_state,
+        ))</code></pre>
+</details>
+</dd>
+<dt id="sv_km.KMeansOperator.construct_frequency_list"><code class="name flex">
+<span>def <span class="ident">construct_frequency_list</span></span>(<span>self, frequencies_provided)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Either using a channel_list or a frequency_list this function provides one which satisfies all requirements of this class structure. In particular the channels and frequencies involved have to be known and mapped to oneanother.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>frequencies_provided</code></strong> :&ensp;<code>boolean</code></dt>
+<dd>was a frequency_list provided at object creation? If so then 'True' if a channel_list instead was used then 'False'.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_frequency_list(self, frequencies_provided):
+    &#34;&#34;&#34;Either using a channel_list or a frequency_list this function provides one which satisfies all requirements of this class structure. In particular the channels and frequencies involved have to be known and mapped to oneanother.
+
+    Args:
+        frequencies_provided (boolean): was a frequency_list provided at object creation? If so then &#39;True&#39; if a channel_list instead was used then &#39;False&#39;.
+    &#34;&#34;&#34;        
+    if frequencies_provided == True:
+        self.simple_frequency_list = self.frequency_list
+        self.frequency_list = []
+
+        for j in self.simple_frequency_list:
+            for i in range(len(self.Sv.Sv)):
+                if str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip() == j.split(&#34;kHz&#34;)[0].strip():
+                    self.frequency_list.append([i,str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])
+                    
+    else:
+        for i in self.channel_list:
+            self.frequency_list.append([i,str(self.Sv.Sv[i].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])</code></pre>
+</details>
+</dd>
+<dt id="sv_km.KMeansOperator.construct_frequency_set_string"><code class="name flex">
+<span>def <span class="ident">construct_frequency_set_string</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_frequency_set_string(self):
+    
+    frequency_set_string = &#34;&#34;
+    
+    for i in self.frequency_list:
+        
+        frequency_set_string += i[1].split(&#34; &#34;)[0]+&#34;kHz,&#34;
+
+    frequency_set_string = &#34;&lt;(&#34;+frequency_set_string+&#34;,&#34;
+    frequency_set_string = frequency_set_string.split(&#34;,,&#34;)[0]+&#34;)&gt;&#34;
+    self.frequency_set_string = frequency_set_string</code></pre>
+</details>
+</dd>
+<dt id="sv_km.KMeansOperator.construct_pre_clustering_df"><code class="name flex">
+<span>def <span class="ident">construct_pre_clustering_df</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct_pre_clustering_df(self):
+    
+    pre_clustering_df = pd.DataFrame()
+    sv_frequency_map_list = []
+
+
+    for i in self.frequency_list: # Need a channel mapping function.
+        
+        #print(i)
+        channel_df = self.Sv.Sv[i[0]].to_dataframe(name=None, dim_order=None)
+        channel_df.rename(columns = {&#39;Sv&#39;:str(self.Sv.Sv[i[0]].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;}, inplace = True)
+        sv_frequency_map_list.append(channel_df[str(self.Sv.Sv[i[0]].coords.get(&#34;channel&#34;)).split(&#34; kHz&#34;)[0].split(&#34;GPT&#34;)[1].strip()+&#34; kHz&#34;])
+        
+    pre_clustering_df = pd.concat(sv_frequency_map_list, axis = 1)
+    return pre_clustering_df.reset_index().select_dtypes(include=[&#39;float64&#39;])</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="sv_km.RandomForestAgent"><code class="flex name class">
+<span>class <span class="ident">RandomForestAgent</span></span>
+<span>(</span><span>df, channel_list, k, random_state)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RandomForestAgent():
+    
+    def __init__(self, df, channel_list, k, random_state): # TODO Need to take in channel list instead of query matrix.
+
+        self.random_state = random_state
+        self.channel_list = channel_list
+        self.k = k
+        self.df = df
+        
+        self.assign_random_forests() # Initiate Random-Forest sequence.
+        
+    
+    def assign_random_forests(self):
+        pass</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="sv_km.RandomForestAgent.assign_random_forests"><code class="name flex">
+<span>def <span class="ident">assign_random_forests</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def assign_random_forests(self):
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="sv_km.Frequencies" href="#sv_km.Frequencies">Frequencies</a></code></h4>
+<ul class="">
+<li><code><a title="sv_km.Frequencies.construct_frequency_list" href="#sv_km.Frequencies.construct_frequency_list">construct_frequency_list</a></code></li>
+<li><code><a title="sv_km.Frequencies.construct_frequency_set_combination_list" href="#sv_km.Frequencies.construct_frequency_set_combination_list">construct_frequency_set_combination_list</a></code></li>
+<li><code><a title="sv_km.Frequencies.powerset" href="#sv_km.Frequencies.powerset">powerset</a></code></li>
+<li><code><a title="sv_km.Frequencies.print_frequency_list" href="#sv_km.Frequencies.print_frequency_list">print_frequency_list</a></code></li>
+<li><code><a title="sv_km.Frequencies.print_frequency_set_combination_list" href="#sv_km.Frequencies.print_frequency_set_combination_list">print_frequency_set_combination_list</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="sv_km.KMeansOperator" href="#sv_km.KMeansOperator">KMeansOperator</a></code></h4>
+<ul class="">
+<li><code><a title="sv_km.KMeansOperator.assign_sv_clusters" href="#sv_km.KMeansOperator.assign_sv_clusters">assign_sv_clusters</a></code></li>
+<li><code><a title="sv_km.KMeansOperator.construct_frequency_list" href="#sv_km.KMeansOperator.construct_frequency_list">construct_frequency_list</a></code></li>
+<li><code><a title="sv_km.KMeansOperator.construct_frequency_set_string" href="#sv_km.KMeansOperator.construct_frequency_set_string">construct_frequency_set_string</a></code></li>
+<li><code><a title="sv_km.KMeansOperator.construct_pre_clustering_df" href="#sv_km.KMeansOperator.construct_pre_clustering_df">construct_pre_clustering_df</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="sv_km.RandomForestAgent" href="#sv_km.RandomForestAgent">RandomForestAgent</a></code></h4>
+<ul class="">
+<li><code><a title="sv_km.RandomForestAgent.assign_random_forests" href="#sv_km.RandomForestAgent.assign_random_forests">assign_random_forests</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
