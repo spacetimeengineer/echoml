@@ -1,6 +1,6 @@
 # Download echoml
 
-1.) Download the zip file provided and then unzip and navigate to folder.
+1.) Download the zip file provided and unzip and open terminal outside directory.
 
 
 2.) Rename and navigate to 'echoml' directory
@@ -13,6 +13,14 @@
 
 
 # Example (app.py provided)
+
+1.) Navigate to examples directory
+
+    $ cd examples
+    
+2.) Run
+
+    $ python3 app.py
 
 ```python
 
