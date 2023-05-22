@@ -12,7 +12,7 @@
     $ pip3 install .
 
 
-# Example (app.py provided)
+# Example (examples/app.py)
 
 1.) Navigate to examples directory
 
