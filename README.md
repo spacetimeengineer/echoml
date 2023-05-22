@@ -1,15 +1,18 @@
-# Install
+# Download echoml
 
-Download the zip file provided and then unzip and navigate to folder.
+1.) Download the zip file provided and then unzip and navigate to folder.
 
-    $ rn echoml-master echoml
 
-    $ cd echoml
+2.) Rename and navigate to 'echoml' directory
+
+    $ mv echoml-master echoml && cd echoml
+
+4.) Install package
 
     $ pip3 install .
 
 
-# Import EchoCluster
+# Example (app.py provided)
 
 ```python
 
