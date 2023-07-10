@@ -54,10 +54,11 @@ class FrequencyData():
         
         self.Sv = Sv # Crreate a self object.
         self.frequency_list = [] # Declares a frequency list to be modified.
+        
         self.construct_frequency_list() # Construct the frequency list.
         self.frequency_set_combination_list = self.construct_frequency_set_combination_list()
         self.frequency_pair_combination_list = self.construct_frequency_pair_combination_list()
-
+        self.get_frequency()
 
     def construct_frequency_list(self):
         """Parses the frequencies available in the xarray 'Sv'
@@ -118,18 +119,19 @@ class FrequencyData():
             print(i) # Print out frequency combination tuple.
             
 
-            
     def print_frequency_list(self):
         """Prints each frequency element available in Sv.
         """        
         
         for i in self.frequency_list:# For each frequency in the frequency_list associated with Sv.
             print(i) # Print out the associated frequency.
+            
+
 
 
 class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsupervised-learning-with-python-k-means-and-hierarchical-clustering-f36ceeec919c
     
-    def __init__(self, Sv, channel_list = None, k = None, random_state = None, frequency_list = None, model = "absolute_differences"): # TODO Need to take in channel list instead of query matrix.
+    def __init__(self, Sv, channel_list = None, k = None, random_state = None, frequency_list = None, model = "DIRECT"): # TODO Need to take in channel list instead of query matrix.
         """_summary_
 
         Args:
@@ -147,7 +149,7 @@ class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsuper
         self.frequency_list = frequency_list # Make a class object from frequency_list that was passed.
         self.simple_frequency_list = frequency_list
         self.model = model
-        print(self.Sv)
+        
         if self.frequency_list == None: # If a frequency_list wasn't passed.
             
             if self.channel_list != None: # If a channel_list wasn't passed.
@@ -220,12 +222,12 @@ class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsuper
         
         self.frequency_pair_combination_list = list(itertools.combinations(self.frequency_list, 2))
         
-        if self.model == "direct":
+        if self.model == "DIRECT":
  
  
             for i in self.frequency_list: # Need a channel mapping function.
                 
-                #print(i) # For testing. Each element is an ordered list pair with a channel in the first element and a frequency in the second.
+                print(i) # For testing. Each element is an ordered list pair with a channel in the first element and a frequency in the second.
                 channel_df = self.Sv.Sv[i[0]].to_dataframe(name=None, dim_order=None)
                 channel_df.rename(columns = {'Sv':str(self.Sv.Sv[i[0]].coords.get("channel")).split("kHz")[0].split("GPT")[1].strip()+"kHz"}, inplace = True)
                 #print(channel_df)
@@ -241,7 +243,7 @@ class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsuper
             #Make a list of all possible unordered pairs given a list of elements
             
         
-        if self.model == "absolute_differences":
+        if self.model == "ABSOLUTE_DIFFERENCES":
         
             for i in self.frequency_pair_combination_list:
                 #print(self.Sv.Sv[i[0][0]].to_dataframe(name=None, dim_order=None)["Sv"] - self.Sv.Sv[i[1][0]].to_dataframe(name=None, dim_order=None)["Sv"])
@@ -256,7 +258,7 @@ class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsuper
         
             #print(sv_frequency_absolute_difference_map_list)
             pre_clustering_df = pd.concat(sv_frequency_absolute_difference_map_list, axis = 1) # Version 1 
-        
+            print(pre_clustering_df)
         
         return pre_clustering_df.reset_index().select_dtypes(include=['float64'])
 
@@ -270,7 +272,7 @@ class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsuper
         
         df_normalized = preprocessing.scale(self.pre_clustering_df) # Normalize dataset such that values are from 0 to 1.
         
-        print(df_normalized)
+        #print(df_normalized)
         
         self.df_clustered = pd.DataFrame(df_normalized) # Make into a dataframe.
         kmeans = KMeans(n_clusters=self.k, random_state = self.random_state, init='k-means++', n_init=10, max_iter=300)  # Kmeans configuration object.
@@ -279,16 +281,21 @@ class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsuper
         
         clustered_records = kmeans.fit_predict(X) # The clustering data in df format.
 
-        print(clustered_records)
+        #print(clustered_records)
 
         self.Sv_df = self.Sv.Sv[0].to_dataframe(name=None, dim_order=None) # We only need to borrow the dimensionality of the xarray so we only need one element of self.Sv.Sv.
         self.Sv_df[self.frequency_set_string] = clustered_records + 1 # So adding one will keep cluster group numbers non-zero.
         
         self.clustering_data = self.Sv_df.to_xarray() # Since the dimensionality is correct at this point we can safely convert this df into an xarray and we can make modifications later.
         km_cluster_maps = [] # An array which helps prepare the dataArray dimensionality. It will store copies of clustering data. The redundancy may seem unfortune but it is infact nessecary due to the nature of how the cluster map was created. 
+        
+        
+        
         for i in range(len(self.Sv.Sv)): # For each frequency, map an euqal clustering set to satisfy dimensionality constraints. This is nuanced but nessecary to make the DataArray meaningful and sensable.
+            #TODO: I know this looks strange but it is not trust me.
             km_cluster_maps.append(self.clustering_data[self.frequency_set_string].values) # Multiply this entry for each channel becasue it needs to be mapped meaningfully to match the dimensionality of range_sample and ping_time.
         
+        print(km_cluster_maps)
         self.Sv["km_cluster_map"+self.frequency_set_string] = xr.DataArray(
             data = km_cluster_maps, dims = ['channel','ping_time','range_sample'], # Clustering data is appended with respect to ping_time and range_sample.
             attrs = dict( # Atrrributes as a dictionary.
@@ -305,64 +312,93 @@ class KMeansOperator: # Reference: https://medium.datadriveninvestor.com/unsuper
 class KMClusterMap:
     """_summary_
     """
-    def __init__(self, filepath, frequency_list, cluster_count, save_path = False, color_map = "viridis", random_state = None, model = "absolute_differences", plot = True, range_meter_bin = None, ping_time_bin = None, range_bin_num = None, ping_num = None, remove_noise = False):
+    def __init__(self, file_path, save_path, frequency_list, cluster_count, random_state = None, model = "DIRECT", color_map = "viridis", plot = True, plot_relevent_echograms = True, data_reduction_type = None, range_meter_bin = None, ping_time_bin = None, range_sample_num = None, ping_num = None, remove_noise = True, ping_time_begin = None, ping_time_end = None, range_sample_begin = None, range_sample_end = None ):
+        """_summary_
+
+        Args:
+            file_path (_type_): _description_
+            save_path (_type_): _description_
+            frequency_list (_type_): _description_
+            cluster_count (_type_): _description_
+            random_state (_type_, optional): _description_. Defaults to None.
+            model (str, optional): _description_. Defaults to "DIRECT".
+            color_map (str, optional): _description_. Defaults to "viridis".
+            plot (bool, optional): _description_. Defaults to True.
+            plot_relevent_echograms (bool, optional): _description_. Defaults to True.
+            data_reduction_type (_type_, optional): _description_. Defaults to None.
+            range_meter_bin (_type_, optional): _description_. Defaults to None.
+            ping_time_bin (_type_, optional): _description_. Defaults to None.
+            range_sample_num (_type_, optional): _description_. Defaults to None.
+            ping_num (_type_, optional): _description_. Defaults to None.
+            remove_noise (bool, optional): _description_. Defaults to True.
+            ping_time_begin (_type_, optional): _description_. Defaults to None.
+            ping_time_end (_type_, optional): _description_. Defaults to None.
+            range_sample_begin (_type_, optional): _description_. Defaults to None.
+            range_sample_end (_type_, optional): _description_. Defaults to None.
+        """        
         
         
-        
-        
-        self.filepath = filepath
-        self.file_name = self.filepath.split("."+self.filepath.split(".")[-1])[0].replace(".","").replace("/","")
+        self.file_path = file_path
+        print(self.file_path)
+        print(self.file_path.split("."+self.file_path.split(".")[-1])[0].replace(".",""))
+        self.file_name = self.file_path.split("."+self.file_path.split(".")[-1])[0].replace(".","").split("/")[-1]
         print(self.file_name)
         self.random_state = random_state
         self.color_map = color_map
         self.save_path = save_path
         self.cluster_count = cluster_count
-        self.frequency_list=frequency_list
+        self.frequency_list = frequency_list
         self.model = model
         self.plot = plot
         
         self.range_meter_bin = range_meter_bin
         self.ping_time_bin = ping_time_bin
         
-        self.range_bin_num = range_bin_num
+        self.range_sample_num = range_sample_num
         self.ping_num = ping_num
         
         self.remove_noise = remove_noise
         
-        self.frequency_list_string = self.construct_frequency_list_string()
-        self.run()
+        self.plot_relevent_echograms = plot_relevent_echograms
         
+        self.ping_time_begin = ping_time_begin
+        self.ping_time_end = ping_time_end
+        self.range_sample_begin = range_sample_begin
+        self.range_sample_end = range_sample_end
+
+        self.data_reduction_type = data_reduction_type
+
+        self.frequency_list_string = self.construct_frequency_list_string()
+        self.run() 
+        
+            
+            
+            
             
     def run(self):
         
+        save_directory = self.save_path # Class object copies save directory string path and keeps as a class object variable for convenience.
         
-        
-        
-        
-        
-        save_directory = self.save_path
-        if not os.path.exists(save_directory):
+        if not os.path.exists(save_directory): # If directory does not exist.
+            
             os.makedirs(save_directory)
         
         
-        if self.filepath.split(".")[-1] == "raw":
+        if self.file_path.split(".")[-1] == "raw":
             
-            raw_file = self.filepath
+            raw_file = self.file_path
+            
             ed = ep.open_raw(raw_file = raw_file, sonar_model='EK60')  
+            ed.to_netcdf(save_path='./nc_files')
+            self.Sv = ep.calibrate.compute_Sv(ed).dropna(dim="range_sample", how="any").isel(range_sample=slice(self.range_sample_begin, self.range_sample_end), ping_time=slice(self.ping_time_begin, self.ping_time_end)) # Pulls a cleaner version of Sv without NaNs.
             
-            ed.to_netcdf(save_path='./unpacked_files')
-            self.Sv = ep.calibrate.compute_Sv(ed).dropna(dim="range_sample", how="any")                    
-            
-
-            
-        if self.filepath.split(".")[-1] == "nc":
+        if self.file_path.split(".")[-1] == "nc": # If a .nc file is provided by user.
             
             
             
-            nc_file = self.filepath
-            ed = ep.open_converted(nc_file)  
-            self.Sv = ep.calibrate.compute_Sv(ed).dropna(dim="range_sample", how="any")      
-            # manipulate Sv              
+            nc_file = self.file_path # .nc filepath or location.
+            ed = ep.open_converted(nc_file) # Principle echopype conversion function. This provides echodata object.
+            self.Sv = ep.calibrate.compute_Sv(ed).dropna(dim="range_sample", how="any").isel(range_sample=slice(self.range_sample_begin, self.range_sample_end), ping_time=slice(self.ping_time_begin, self.ping_time_end)) # Pulls a cleaner version of Sv without NaNs.
             
             
         if self.Sv is None:
@@ -370,108 +406,127 @@ class KMClusterMap:
             print("provide .raw or .nc file")
             
         else:
-            
+
             self.preprocess()
             
-            
             # Plot kmeans cluster map
-            
-            self.kmeans_operation = KMeansOperator(Sv = self.Sv, frequency_list = self.frequency_list, k = self.cluster_count, random_state = self.random_state, model = self.model) 
+            if self.data_reduction_type == "sample_number":
+                
+                self.kmeans_operation = KMeansOperator(Sv = self.MVBS_sample_number_type_reduction, frequency_list = self.frequency_list, k = self.cluster_count, random_state = self.random_state, model = self.model) 
 
-            if self.plot == True or self.save_path == False:
+            
+            if self.data_reduction_type == "physical_units":
                 
-                self.plot_cluster_map()
-            
-            
-            if self.save_path != False:
+                self.kmeans_operation = KMeansOperator(Sv = self.MVBS_physical_unit_type_reduction, frequency_list = self.frequency_list, k = self.cluster_count, random_state = self.random_state, model = self.model) 
+
+
+            if self.data_reduction_type == None and self.remove_noise == True:
                 
-                self.save_cluster_map()
+                self.kmeans_operation = KMeansOperator(Sv = self.Sv_clean, frequency_list = self.frequency_list, k = self.cluster_count, random_state = self.random_state, model = self.model) 
+
+            if self.data_reduction_type == None and self.remove_noise == False:
+                
+                self.kmeans_operation = KMeansOperator(Sv = self.Sv, frequency_list = self.frequency_list, k = self.cluster_count, random_state = self.random_state, model = self.model) 
+                
+            self.frequency_list = self.kmeans_operation.frequency_list # Makes a copy of the constructed frequency list data for this class since we need it for plotting.
+
+
+            if self.plot == True or self.save_path == None:
+                
+                self.plot_cluster_map(self.kmeans_operation.Sv)
             
             
+            if self.save_path != None:
+                
+                self.full_save(self.kmeans_operation.Sv)
             
-            
+                    
+        
     def preprocess(self):
-        
-        
-        if self.range_meter_bin != None and self.ping_time_bin != None:
-        
-            # Reduce data based on physical units
-            self.MVBS = ep.preprocess.compute_MVBS(
-                self.Sv,               # calibrated Sv dataset
-                range_meter_bin=self.range_meter_bin,  # bin size to average along range in meters
-                ping_time_bin=self.ping_time_bin  # bin size to average along ping_time in seconds exakple: '20S' ?
+               
+        if self.remove_noise == True:
+                
+
+            self.Sv_clean = ep.preprocess.remove_noise(    # obtain a denoised Sv dataset.
+                self.Sv,             # calibrated Sv dataset.
+                range_sample_num=self.range_sample_num,   # number of samples along the range_bin dimension for estimating noise
+                ping_num=self.ping_num,        # number of pings for estimating noise.
             )
 
-        """if self.range_bin_num != None and self.ping_num != None:
 
-
-            if self.MVBS != None:
-                # Reduce data based on sample number
-                self.MVBS = ep.preprocess.compute_MVBS_index_binning(
-                    self.MVBS,             # calibrated Sv dataset
-                    range_bin_num=self.range_bin_num,  # number of sample bins to average along the range_bin dimensionm
-                    ping_num=self.ping_num         # number of pings to average
-                )
-                
-            else:
-                # Reduce data based on sample number
-                self.MVBS = ep.preprocess.compute_MVBS_index_binning(
-                    self.Sv,             # calibrated Sv dataset
-                    range_bin_num=self.range_bin_num,  # number of sample bins to average along the range_bin dimensionm
-                    ping_num=self.ping_num         # number of pings to average
-                )
-                
-
+        if self.range_meter_bin != None and self.ping_time_bin != None:
+        
             if self.remove_noise == True:
+                # Reduce data based on physical units
+                self.MVBS_physical_unit_type_reduction = ep.commongrid.compute_MVBS(
+                    self.Sv_clean,               # calibrated Sv dataset
+                    range_meter_bin=self.range_meter_bin,  # bin size to average along range in meters
+                    ping_time_bin=self.ping_time_bin  # bin size to average along ping_time in seconds exakple: '20S' ?
+                )
                 
+            if self.remove_noise == False:
+                # Reduce data based on physical units
+                self.MVBS_physical_unit_type_reduction = ep.commongrid.compute_MVBS(
+                    self.Sv,               # calibrated Sv dataset
+                    range_meter_bin=self.range_meter_bin,  # bin size to average along range in meters
+                    ping_time_bin=self.ping_time_bin  # bin size to average along ping_time in seconds exakple: '20S' ?
+                )
 
-                if self.MVBS != None:
-                    
-                    self.MVBS = ep.preprocess.remove_noise(    # obtain a denoised Sv dataset
-                        self.MVBS,             # calibrated Sv d  ataset
-                        range_bin_num=self.range_bin_num,   # number of samples along the range_bin dimension for estimating noise
-                        ping_num=self.ping_num,        # number of pings for estimating noise
-                    )
-                    
-                else:
-
-                    self.MVBS = ep.preprocess.remove_noise(    # obtain a denoised Sv dataset
-                        self.Sv,             # calibrated Sv dataset
-                        range_bin_num=self.range_bin_num,   # number of samples along the range_bin dimension for estimating noise
-                        ping_num=self.ping_num,        # number of pings for estimating noise
-                    )"""
-        try:
-            if self.MVBS != None:
-                self.Sv = self.MVBS    
-        except AttributeError:
-            pass
-              
+        if self.ping_num != None and self.range_sample_num != None:
+            
+            if self.remove_noise == True:
+                # Reduce data based on sample number
+                self.MVBS_sample_number_type_reduction = ep.commongrid.compute_MVBS_index_binning(
+                    self.Sv_clean,             # calibrated Sv dataset
+                    range_sample_num=self.range_sample_num,  # number of sample bins to average along the range_bin dimensionm
+                    ping_num=self.ping_num         # number of pings to average
+                )
+            if self.remove_noise == False:
+                # Reduce data based on sample number
+                self.MVBS_sample_number_type_reduction = ep.commongrid.compute_MVBS_index_binning(
+                    self.Sv,             # calibrated Sv dataset
+                    range_sample_num=self.range_sample_num,  # number of sample bins to average along the range_bin dimensionm
+                    ping_num=self.ping_num         # number of pings to average
+                )
                 
-
+           
     
-    def plot_cluster_map(self):
+    def plot_cluster_map(self, Sv):
         
         
         cmap = plt.get_cmap(self.color_map, self.cluster_count)
-        self.Sv["km_cluster_map"+self.kmeans_operation.frequency_set_string][0].transpose("range_sample","ping_time").plot(cmap=cmap)
-        
-        print(self.Sv)
+        Sv["km_cluster_map"+self.kmeans_operation.frequency_set_string][0].transpose("range_sample","ping_time").plot(cmap=cmap)   
+        #self.Sv["Sv"][0].transpose("range_sample","ping_time").plot() # Regular plot to which we compare with.
 
-        plt.title(self.kmeans_operation.frequency_set_string+",    cluster_count = "+str(self.cluster_count)+",    random_state = "+str(self.random_state)+",    file = "+self.filepath+",    colormap = "+self.color_map)
+        plt.title(self.kmeans_operation.frequency_set_string+",    cluster_count = "+str(self.cluster_count)+",    random_state = "+str(self.random_state)+",    file = "+self.file_path+",    colormap = "+self.color_map)
         plt.gca().invert_yaxis()
         plt.show()
         
-    def save_cluster_map(self):
+    def save_echogram(self, data_array, channel):
         
-        
-        cmap = plt.get_cmap(self.color_map, self.cluster_count)
-        self.Sv["km_cluster_map"+self.kmeans_operation.frequency_set_string][0].transpose("range_sample","ping_time").plot(cmap=cmap)
-        
-        print(self.Sv)
 
-        plt.title(self.kmeans_operation.frequency_set_string+",    cluster_count = "+str(self.cluster_count)+",    random_state = "+str(self.random_state)+",    file = "+self.filepath+",    colormap = "+self.color_map)
+        cmap = plt.get_cmap(self.color_map, self.cluster_count)      
+        data_array[channel].transpose("range_sample","ping_time").plot()
+        plt.title("frequency = "+self.get_frequency(channel)+",    file = "+self.file_path+",    colormap = "+self.color_map)
+        plt.legend(frameon=None)
+        
         plt.gca().invert_yaxis()
-        plt.savefig(self.save_path+"/km:"+self.file_name+"<"+ self.frequency_list_string+"k="+str(self.cluster_count)+"_rs="+str(self.random_state)+"_cm="+self.color_map+"_md="+str(self.model)+"_rmb="+str(self.range_meter_bin)+">")
+        plt.savefig(fname = self.save_path+"/eg:"+self.file_name+"<"+self.get_frequency(channel)+">", dpi=2048)   
+    
+        
+    def save_cluster_map(self, Sv):
+        
+        cmap = plt.get_cmap(self.color_map, self.cluster_count) 
+        Sv["km_cluster_map"+self.kmeans_operation.frequency_set_string][0].transpose("range_sample","ping_time").plot(cmap=cmap)
+        plt.title(self.kmeans_operation.frequency_set_string+",    cluster_count = "+str(self.cluster_count)+",    random_state = "+str(self.random_state)+",    file = "+self.file_path+",    colormap = "+self.color_map)
+        plt.gca().invert_yaxis()
+        plt.savefig(self.save_path+"/km:"+self.file_name+"<"+ self.frequency_list_string+"k="+str(self.cluster_count)+"_rs="+str(self.random_state)+"_cm="+self.color_map+"_md="+str(self.model)+"_rmb="+str(self.range_meter_bin)+">", dpi=2048)
+
+
+    def full_save(self, Sv):
+        self.save_cluster_map(Sv)
+        for frequency in self.frequency_list:
+            self.save_echogram(self.Sv["Sv"],frequency[0])
 
     def construct_frequency_list_string(self):
         frequency_list_string = ""
@@ -480,52 +535,95 @@ class KMClusterMap:
         
         return frequency_list_string
 
+    def get_frequency(self, channel):
+        
+        for frequency in self.frequency_list:
+            if frequency[0] == channel:
+                return frequency[1]
+        
+            
+    def get_channel(self, frequency):
+        
+        for frequency in self.frequency_list:
+            if frequency[1] == frequency:
+                return frequency[0]
+
 
 class KMClusterSweep: 
     
-    def __init__(self, filepath, frequency_list, total_cluster_count, save_path = ".\km_sweep_maps", random_state = None):
+    def __init__(self, file_path, frequency_list, total_cluster_count, save_path = ".\km_sweep_maps", random_state = None):
         
-        self.filepath = filepath
+        self.file_path = file_path
     
         for i in range(total_cluster_count):
-            KMClusterMap(filepath = filepath, frequency_list = ['18kHz','200kHz'], cluster_count = i, save_path = ".\km_cluster_maps", color_map="rainbow", plot = False)
+            KMClusterMap(file_path = file_path, frequency_list = ['18kHz','200kHz'], cluster_count = i, save_path = ".\km_cluster_maps", color_map="rainbow", plot = False)
             
 
 
-"""import echoclassify as ec
 
-foo = ec.KMClusterMap(
-    filepath = "./D20090405-T114914.raw",
-    frequency_list = ['38kHz','70kHz','120kHz','18kHz','200kHz'],
-    cluster_count = 24,
-    save_path = "km_cluster_maps",
-    random_state = 42,
-    color_map = "jet",
-    range_meter_bin = 2,
-    ping_time_bin = '4S',
-    range_bin_num = 300,      # Ineffectual
-    ping_num = 2,             # Ineffectual
-    model = "direct",
-    plot = True,
-    remove_noise = True       # Ineffectual
-    )
 
-foo.run()"""
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 KMClusterMap(
-    filepath = "./D20090405-T114914.raw",
-    frequency_list = ['38kHz','70kHz','120kHz','18kHz','200kHz'],
-    cluster_count = 24,
-    save_path = "km_cluster_maps",
-    random_state = 42,
-    color_map = "jet",
-    range_meter_bin = 2,
-    ping_time_bin = '4S',
-    range_bin_num = 300,      # Ineffectual
-    ping_num = 2,             # Ineffectual
-    model = "direct",
-    plot = True,
-    remove_noise = True       # Ineffectual
-    )
+    
+    # Path Configuration
+    
+    file_path = "./resources/D20090405-T114914.raw",                # Path of the .raw or .nc file.
+    save_path = "generated",                                  # Save directory where contents will be stored. 
+    
+    
+    # KMeans Configuration
+    
+    frequency_list = ['38kHz','70kHz','120kHz','18kHz','200kHz'],   # List of frequencies to be included into the KMeans clustering operation. There must be atleast two otherwise operation is meaningless.
+    cluster_count = 5,                                              # The quantity of clusters (colors) the data is clustered into.
+    random_state = 42,                                              # Random state variable needed for KMeans operations.
+    
+    
+    # Pre-Clustering Model
+    
+    model = "DIRECT",                                               # Paramaters may be "DIRECT" or "ABSOLUTE_DIFFERENCES" and defaults to "DIRECT". This reffers to the way the Sv values of a given set of frequencies are being compared in the clustering algorithm.
+    
+    
+    # Plotting
+    
+    color_map = "jet",                                              # Color map variable. Defaults to "viridis" Check out https://matplotlib.org/stable/tutorials/colors/colormaps.html to see options. Examples include 'jet', 'plasma', 'inferno', 'magma', 'cividis'.
+    plot = True,                                                    # Plot the cluster map. ( As opposed to just saving the map. )
+    plot_relevent_echograms = True,                                 # Plot original echograms of frequencies included in the cluster map.
+        
+    
+    # MVBS & Data Reduction
+    
+    data_reduction_type = "sample_number",                                     # Must be one of two string options, "physical_units" or "sample_number" or comment out to default to None .
+    range_meter_bin = 2,                                            # 
+    ping_time_bin = '2S',                                          #
+    range_sample_num = 1,                                          #
+    ping_num = 1,                                                   # 
+    
+        
+    # Noise Removal
+    
+    remove_noise = False,                                           # Remove noise from dataset.
+    
+    
+    # Subset Selection
+     
+    ping_time_begin = 0,                                            # For datasubset selection. Select integer or datetime value.
+    ping_time_end = None,                                           # For datasubset selection. Select integer or datetime value.
+    range_sample_begin = 250,                                         # For datasubset selection. 
+    range_sample_end = 750                                         # For datasubset selection.
+    
+)
+
+
