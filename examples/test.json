@@ -1,0 +1,53 @@
+{
+    "path_config" : {
+        "EK_data_path" : "/home/mryan/Desktop/echoml/examples/resources",
+        "EK_data_filenames" : ["D20090916-T132105.raw"],
+        "save_path" : "generated"
+        },
+    "sonar_model" : "EK60",
+    "kmeans_config" : {
+        "frequency_list" : [
+
+            "38kHz",
+            "18kHz",
+            "120kHz",
+            "200kHz"
+        ],
+        "cluster_count" : 4,
+        "random_state" : 42,
+        "model" : "ABSOLUTE_DIFFERENCES",
+        "n_init" : 0,
+        "max_iter" : 0
+    },
+    "plotting" : {
+        "cluster_color_map" : "jet",
+        "echogram_color_map" : "viridis",
+        "plot" : true
+    },
+    "data_reduction" : {
+        "data_reduction_type" : "sample_number",
+        "range_meter_bin" : 2,
+        "ping_time_bin" : "25S",
+        "range_sample_num" : 1,
+        "ping_num" : 1
+    },
+    "noise_removal" : true,
+    "sub_selection" : {
+        "rectangular" : {
+            "ping_time_begin" : null,
+            "ping_time_end" : null,
+            "range_sample_begin" : null,
+            "range_sample_end" : null
+        },
+        "region_files" : [
+
+        ],
+        "line_files" : [ 
+            {
+                "path" : "resources/HB1603_SpermWhaleDive_07072016_1948_UTC.evl",
+                "depth_offset" : [ -2000, "above"],
+                "ping_time_offset" : [ 0, "right"]
+            }
+        ]
+    }
+}
