@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "echoml"
+version = "0.1.0"
+description = "A machine learning utility for analyzing echograms using K-Means cluster maps built on echopype"
+authors = [
+    { name = "Michael C Ryan", email = "spacetime.engineer@gmail.com" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+homepage = "https://github.com/mryan/echoml"
+repository = "https://github.com/mryan/echoml"
+keywords = ["machine learning", "utilities", "python"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
