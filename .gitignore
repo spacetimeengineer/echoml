@@ -1,0 +1,64 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs and debug files
+*.log
+*.out
+*.err
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Build and distribution directories
+build/
+dist/
+*.egg-info/
+
+# Compiled files
+*.so
+*.dll
+*.dylib
+
+# Configuration files
+*.ini
+*.cfg
+
+# Data files
+*.csv
+*.h5
+*.nc
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Test coverage reports
+.coverage
+htmlcov/
+
+# Tox and pytest
+.tox/
+.pytest_cache/
+
+# Generated documentation
+docs/_build/
+
+# Custom files
+output/
+results/
