@@ -12,7 +12,7 @@ from itertools import chain, combinations
 import matplotlib.pyplot as plt
 import itertools
 import os
-
+import argparse
 pd.set_option('display.max_columns', None)  
 pd.set_option('display.expand_frame_repr', False)
 
@@ -627,3 +627,73 @@ KMClusterMap(
 )
 
 
+# Import KMClusterMap from your module
+# from echoml import KMClusterMap
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="KMClusterMap: A tool for K-Means clustering of echogram data."
+    )
+
+    # Path Configuration
+    parser.add_argument("--file_path", required=True, help="Path to the .raw or .nc file.")
+    parser.add_argument("--save_path", default="generated", help="Directory to save the output.")
+
+    # KMeans Configuration
+    parser.add_argument("--frequency_list", nargs="+", required=True, help="List of frequencies (e.g., 38kHz 70kHz 120kHz).")
+    parser.add_argument("--cluster_count", type=int, required=True, help="Number of clusters.")
+    parser.add_argument("--random_state", type=int, default=42, help="Random state for K-Means.")
+
+    # Pre-Clustering Model
+    parser.add_argument("--model", choices=["DIRECT", "ABSOLUTE_DIFFERENCES"], default="DIRECT",
+                        help="Pre-clustering model (DIRECT or ABSOLUTE_DIFFERENCES).")
+
+    # Plotting
+    parser.add_argument("--color_map", default="viridis", help="Colormap for the cluster map.")
+    parser.add_argument("--plot", action="store_true", help="Plot the cluster map.")
+    parser.add_argument("--plot_relevent_echograms", action="store_true", help="Plot original echograms.")
+
+    # MVBS & Data Reduction
+    parser.add_argument("--data_reduction_type", choices=["physical_units", "sample_number"], help="Type of data reduction.")
+    parser.add_argument("--range_meter_bin", type=int, help="Range meter bin size.")
+    parser.add_argument("--ping_time_bin", help="Ping time bin size (e.g., '2S').")
+    parser.add_argument("--range_sample_num", type=int, help="Number of range samples.")
+    parser.add_argument("--ping_num", type=int, help="Number of pings.")
+
+    # Noise Removal
+    parser.add_argument("--remove_noise", action="store_true", help="Remove noise from the dataset.")
+
+    # Subset Selection
+    parser.add_argument("--ping_time_begin", type=int, default=0, help="Start of ping time subset.")
+    parser.add_argument("--ping_time_end", type=int, help="End of ping time subset.")
+    parser.add_argument("--range_sample_begin", type=int, default=0, help="Start of range sample subset.")
+    parser.add_argument("--range_sample_end", type=int, help="End of range sample subset.")
+
+    # Parse arguments
+    args = parser.parse_args()
+
+    # Call KMClusterMap with parsed arguments
+    KMClusterMap(
+        file_path=args.file_path,
+        save_path=args.save_path,
+        frequency_list=args.frequency_list,
+        cluster_count=args.cluster_count,
+        random_state=args.random_state,
+        model=args.model,
+        color_map=args.color_map,
+        plot=args.plot,
+        plot_relevent_echograms=args.plot_relevent_echograms,
+        data_reduction_type=args.data_reduction_type,
+        range_meter_bin=args.range_meter_bin,
+        ping_time_bin=args.ping_time_bin,
+        range_sample_num=args.range_sample_num,
+        ping_num=args.ping_num,
+        remove_noise=args.remove_noise,
+        ping_time_begin=args.ping_time_begin,
+        ping_time_end=args.ping_time_end,
+        range_sample_begin=args.range_sample_begin,
+        range_sample_end=args.range_sample_end,
+    )
+
+if __name__ == "__main__":
+    main()
