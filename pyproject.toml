@@ -9,13 +9,22 @@ description = "A machine learning utility for analyzing echograms using K-Means 
 authors = [
     { name = "Michael C Ryan", email = "spacetime.engineer@gmail.com" }
 ]
-license = { text = "MIT" }
+license = "BSD-3-Clause"  # SPDX license identifier
 readme = "README.md"
-homepage = "https://github.com/mryan/echoml"
-repository = "https://github.com/mryan/echoml"
-keywords = ["machine learning", "utilities", "python"]
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.21.0",
+    "pandas>=1.3.0",
+    "xarray",
+    "scikit-learn>=1.0.0",
+    "matplotlib>=3.4.0",
+    "echopype>=0.6.0",
+    "echoregions",
+    "loguru"
+]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent"
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: End Users/Desktop"
 ]

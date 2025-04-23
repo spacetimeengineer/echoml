@@ -1,0 +1,46 @@
+path_configuration:
+  file_path: "$HOME/Downloads/D20090405-T114914.raw"
+  save_path: "$HOME/Documents/kmap_exports"
+
+kmeans_configuration:
+  frequency_list: ['38kHz', '70kHz', '120kHz', '18kHz', '200kHz']
+  cluster_count: 5
+  random_state: 42
+
+pre_clustering_model:
+  model: "ABSOLUTE_DIFFERENCES"
+
+plotting:
+  color_map: "jet"
+  plot: true
+  plot_relevent_echograms: true
+
+mvbs_data_reduction:
+  data_reduction_type: "sample_number"
+  range_meter_bin: 2
+  ping_time_bin: "2S"
+  range_sample_num: 1
+  ping_num: 1
+
+noise_removal:
+  remove_noise: false
+
+subset_selection:
+  ping_time_begin: 0
+  ping_time_end: null
+  range_sample_begin: 250
+  range_sample_end: 750
+
+dependencies:
+  echopype_version: "0.4.0"
+  python_version: "3.8.10"
+  numpy_version: "1.21.2"
+  pandas_version: "1.3.3"
+  matplotlib_version: "3.4.3"
+  scikit_learn_version: "0.24.2"
+  scipy_version: "1.7.1"
+  xarray_version: "0.18.2"
+  name: "KMAP"
+  version: "1.0.0"
+
+filename: "D20090405-T114914_F38-70-120_K5R42_MABS_Cjet_MVSN0_S250-750_20250423-153045.yaml"

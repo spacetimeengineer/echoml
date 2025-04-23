@@ -468,7 +468,7 @@ class KMClusterMap:
                 # Reduce data based on physical units
                 self.MVBS_physical_unit_type_reduction = ep.commongrid.compute_MVBS(
                     self.Sv,               # calibrated Sv dataset
-                    range_meter_bin=self.range_meter_bin,  # bin size to average along range in meters
+                    #range_meter_bin=self.range_meter_bin,  # bin size to average along range in meters
                     ping_time_bin=self.ping_time_bin  # bin size to average along ping_time in seconds exakple: '20S' ?
                 )
 
@@ -508,7 +508,7 @@ class KMClusterMap:
         cmap = plt.get_cmap(self.color_map, self.cluster_count)      
         data_array[channel].transpose("range_sample","ping_time").plot()
         plt.title("frequency = "+self.get_frequency(channel)+",    file = "+self.file_path+",    colormap = "+self.color_map)
-        plt.legend(frameon=None)
+        #plt.legend(frameon=None)
         
         plt.gca().invert_yaxis()
         plt.savefig(fname = self.save_path+"/eg:"+self.file_name+"<"+self.get_frequency(channel)+">", dpi=2048)   
@@ -580,7 +580,7 @@ KMClusterMap(
     
     # Path Configuration
     
-    file_path = "./resources/D20090405-T114914.raw",                # Path of the .raw or .nc file.
+    file_path = "/home/mryan/Downloads/D20090405-T114914.raw",                # Path of the .raw or .nc file.
     save_path = "generated",                                  # Save directory where contents will be stored. 
     
     
@@ -593,7 +593,7 @@ KMClusterMap(
     
     # Pre-Clustering Model
     
-    model = "DIRECT",                                               # Paramaters may be "DIRECT" or "ABSOLUTE_DIFFERENCES" and defaults to "DIRECT". This reffers to the way the Sv values of a given set of frequencies are being compared in the clustering algorithm.
+    model = "ABSOLUTE_DIFFERENCES",                                               # Paramaters may be "DIRECT" or "ABSOLUTE_DIFFERENCES" and defaults to "DIRECT". This reffers to the way the Sv values of a given set of frequencies are being compared in the clustering algorithm.
     
     
     # Plotting
