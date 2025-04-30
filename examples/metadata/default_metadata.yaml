@@ -1,0 +1,42 @@
+versions:
+  echopype_version: 0.4.0
+  matplotlib_version: 3.4.3
+  numpy_version: 1.21.2
+  pandas_version: 1.3.3
+  python_version: 3.8.10
+  scikit_learn_version: 0.24.2
+  scipy_version: 1.7.1
+  version: 1.0.0
+  xarray_version: 0.18.2
+path_configuration:
+  file_path: 
+  save_path: 
+kmeans_configuration:
+  cluster_count: 8
+  frequency_list:
+  - 38kHz
+  - 70kHz
+  - 120kHz
+  - 18kHz
+  - 200kHz
+  random_state: 42
+  pre_clustering_model:
+    model: DIRECT
+plotting:
+  color_map: jet
+  plot: true
+  plot_relevent_echograms: true
+echopype:
+  noise_removal:
+    remove_noise: false
+  subset_selection:
+    ping_time_begin: 
+    ping_time_end: 
+    range_sample_begin: 
+    range_sample_end: 
+  mvbs_data_reduction:
+    data_reduction_type: sample_number
+    ping_num: 1
+    ping_time_bin: 2S
+    range_meter_bin: 2
+    range_sample_num: 1

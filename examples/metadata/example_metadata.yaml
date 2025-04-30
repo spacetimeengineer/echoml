@@ -1,6 +1,6 @@
 path_configuration:
-  file_path: "$HOME/Downloads/D20090405-T114914.raw"
-  save_path: "$HOME/Documents/kmap_exports"
+  file_path: "/home/mryan/Downloads/D20090405-T114914.raw"
+  save_path: "/home/mryan/Documents/kmap_exports"
 
 kmeans_configuration:
   frequency_list: ['38kHz', '70kHz', '120kHz', '18kHz', '200kHz']
